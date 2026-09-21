@@ -5,19 +5,81 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
-    <title>My Personal Space</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.sand.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css">
+
+    <title>hanefia</title>
+
+    <style>
+        :root {
+            --pico-font-family: monospace, bold;
+        }
+
+        [data-theme="light"],
+        :root:not([data-theme="dark"]) {
+            color-scheme: light;
+            --pico-background-color: var(--pico-color-sand-100);
+            --pico-color: var(--pico-color-sand-800);
+            --pico-switch-background-color: var(--pico-color-sand-600);
+            --pico-switch-checked-background-color: var(--pico-color-sand-300);
+            --pico-muted-border-color: var(--pico-color-sand-300);
+        }
+
+        @media only screen and (prefers-color-scheme: dark) {
+            :root:not([data-theme]) {
+                color-scheme: dark;
+                --pico-background-color: var(--pico-color-sand-800);
+                --pico-color: var(--pico-color-sand-100);
+                --pico-switch-background-color: var(--pico-color-sand-600);
+                --pico-switch-checked-background-color: var(--pico-color-sand-300);
+                --pico-muted-border-color: var(--pico-color-sand-600);
+            }
+        }
+
+        [data-theme="dark"] {
+            color-scheme: dark;
+            --pico-background-color: var(--pico-color-sand-800);
+            --pico-color: var(--pico-color-sand-100);
+            --pico-switch-background-color: var(--pico-color-sand-600);
+            --pico-switch-checked-background-color: var(--pico-color-sand-300);
+            --pico-muted-border-color: var(--pico-color-sand-600);
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <h1><a href="/">Hanefi Acar</a></h1>
+    <header class="container">
+        <div class="grid">
+            <div>
+                <h3><kbd>hanefia</kbd></h3>
+            </div>
+            <div>
+                <fieldset>
+                    <label>
+                        <input name="daha-theme" type="checkbox" role="switch" />
+                    </label>
+                </fieldset>
+            </div>
+        </div>
+        <hr />
     </header>
-    <main>
+    <main class="container">
         <p>This is a simple personal webpage created using Pico.css.</p>
+        <p>This is a new paragraph.
+            <br>This is a <a href="https://example.com">link</a> in a new line on the same paragraph.
+        </p>
+        <p>This is a list:
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+        </p>
+        <p>This is the last paragraph after the list.</p>
     </main>
-    <footer>
-        <p>&copy; 2026</p>
+    <footer class="container">
+        <hr />
+        &copy; 2026 Hanefi Acar. All rights reserved.
     </footer>
 </body>
 
