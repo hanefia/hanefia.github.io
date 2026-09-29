@@ -20,9 +20,8 @@
             color-scheme: light;
             --pico-background-color: var(--pico-color-sand-100);
             --pico-color: var(--pico-color-sand-800);
-            --pico-switch-background-color: var(--pico-color-sand-600);
-            --pico-switch-checked-background-color: var(--pico-color-sand-300);
-            --pico-muted-border-color: var(--pico-color-sand-300);
+            --pico-switch-background-color: var(--pico-color-sand-700);
+            --pico-switch-checked-background-color: var(--pico-color-sand-200);
         }
 
         @media only screen and (prefers-color-scheme: dark) {
@@ -30,9 +29,8 @@
                 color-scheme: dark;
                 --pico-background-color: var(--pico-color-sand-800);
                 --pico-color: var(--pico-color-sand-100);
-                --pico-switch-background-color: var(--pico-color-sand-600);
-                --pico-switch-checked-background-color: var(--pico-color-sand-300);
-                --pico-muted-border-color: var(--pico-color-sand-600);
+                --pico-switch-background-color: var(--pico-color-sand-700);
+                --pico-switch-checked-background-color: var(--pico-color-sand-200);
             }
         }
 
@@ -40,30 +38,58 @@
             color-scheme: dark;
             --pico-background-color: var(--pico-color-sand-800);
             --pico-color: var(--pico-color-sand-100);
-            --pico-switch-background-color: var(--pico-color-sand-600);
-            --pico-switch-checked-background-color: var(--pico-color-sand-300);
-            --pico-muted-border-color: var(--pico-color-sand-600);
+            --pico-switch-background-color: var(--pico-color-sand-700);
+            --pico-switch-checked-background-color: var(--pico-color-sand-200);
         }
     </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeSwitch = document.querySelector('input[name="data-theme"]');
+            const systemThemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+            if (themeSwitch) {
+                const savedTheme = localStorage.getItem('theme');
+                const systemPrefersDark = systemThemeMedia.matches;
+
+                const currentTheme = savedTheme ? savedTheme : (systemPrefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                themeSwitch.checked = (currentTheme === 'dark');
+
+                themeSwitch.addEventListener('change', function (e) {
+                    const newTheme = e.target.checked ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+
+                systemThemeMedia.addEventListener('change', function (e) {
+                    if (!localStorage.getItem('theme')) {
+                        const newSystemTheme = e.matches ? 'dark' : 'light';
+                        document.documentElement.setAttribute('data-theme', newSystemTheme);
+                        themeSwitch.checked = e.matches;
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
     <header class="container">
-        <div class="grid">
+        <div class="grid" style="grid-template-columns: 1fr auto; align-items: center;">
             <div>
-                <h3><kbd>hanefia</kbd></h3>
+                <h1><kbd>hanefia</kbd></h1>
             </div>
             <div>
                 <fieldset>
                     <label>
-                        <input name="daha-theme" type="checkbox" role="switch" />
+                        <input name="data-theme" type="checkbox" role="switch" />
                     </label>
                 </fieldset>
             </div>
         </div>
-        <hr />
     </header>
-    <main class="container">
+    <main class="container" style="margin-top: 2rem;">
         <p>This is a simple personal webpage created using Pico.css.</p>
         <p>This is a new paragraph.
             <br>This is a <a href="https://example.com">link</a> in a new line on the same paragraph.
@@ -77,9 +103,8 @@
         </p>
         <p>This is the last paragraph after the list.</p>
     </main>
-    <footer class="container">
-        <hr />
-        &copy; 2026 Hanefi Acar. All rights reserved.
+    <footer class="container" style="text-align: right; margin-top: 2rem;">
+        Hanefi Acar &copy; 2026
     </footer>
 </body>
 
